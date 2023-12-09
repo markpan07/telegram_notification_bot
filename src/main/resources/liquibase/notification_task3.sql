@@ -4,7 +4,7 @@
 CREATE TABLE notification_task
 (
     id       SERIAL PRIMARY KEY,
-    chatId   BIGINT                      NOT NULL,
+    chat_id   BIGINT                      NOT NULL,
     text     TEXT                        NOT NULL,
     date_time TIMESTAMP WITHOUT TIME ZONE NOT NULL
 );
