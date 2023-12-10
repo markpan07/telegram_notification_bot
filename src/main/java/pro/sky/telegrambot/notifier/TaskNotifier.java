@@ -27,11 +27,15 @@ public class TaskNotifier {
     }
 
     @Scheduled(timeUnit = TimeUnit.MINUTES, fixedDelay = 1)
-    public void notifyTask(){
+    public void notifyTask() {
         notificatiionTaskRepository.findAllByDateTime(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES))
                 .forEach(notificationTask -> {
                     telegramBot.execute(new SendMessage(notificationTask.getChatId(), notificationTask.getText()));
                     logger.info("{} has been sent", notificationTask);
+                    notificationTask.setHasBeenSent(true);
+                    notificatiionTaskRepository.save(notificationTask);
+                    logger.info("The \"sent flag\" has been set in {}", notificationTask);
+
                 });
     }
 }

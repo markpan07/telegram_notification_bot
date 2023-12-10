@@ -15,6 +15,16 @@ public class NotificationTask {
     private String text;
     @Column(name = "date_time")
     private LocalDateTime dateTime;
+    @Column(name = "has_been_sent")
+    private boolean hasBeenSent;
+
+    public boolean isHasBeenSent() {
+        return hasBeenSent;
+    }
+
+    public void setHasBeenSent(boolean hasBeenSent) {
+        this.hasBeenSent = hasBeenSent;
+    }
 
     public Long getId() {
         return id;

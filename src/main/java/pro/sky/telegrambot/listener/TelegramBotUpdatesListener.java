@@ -47,7 +47,12 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     @Override
     public int process(List<Update> updates) {
         updates.forEach(update -> {
-            logger.info("Processing update: {}", update);
+            logger.info("Processing update: \"{}\", id:{}, from {} {}, username: {}",
+                    update.message().text(),
+                    update.updateId(),
+                    update.message().from().firstName(),
+                    update.message().from().lastName(),
+                    update.message().from().username());
             var text = update.message().text();
             var chatId = update.message().chat().id();
 
@@ -57,7 +62,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 Matcher matcher = PATTERN.matcher(text);
                 if (matcher.matches()) {
                     LocalDateTime dateTime = parseDateTime(matcher.group(1));
-                    if (dateTime.equals(null)) {
+                    if (dateTime == null) {
                         telegramBot.execute(new SendMessage(chatId, "It is not correspond established DateTime format"));
                         return;
                     }

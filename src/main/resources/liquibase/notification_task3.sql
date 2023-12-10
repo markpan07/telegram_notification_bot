@@ -10,3 +10,5 @@ CREATE TABLE notification_task
 );
 
 CREATE INDEX date_time_index ON notification_task(date_time)
+-- changeset mpankov:2
+ALTER TABLE notification_task ADD COLUMN has_been_sent BOOLEAN DEFAULT false
